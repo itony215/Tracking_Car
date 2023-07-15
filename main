@@ -1,0 +1,86 @@
+
+#define leftIR 13
+#define middleIR 12
+#define rightIR 11
+
+int leftReading;
+int middleReading;
+int rightReading;
+const byte B1A = 2;
+const byte B2A = 3;
+const byte A1A = 4;
+const byte A2A = 5;
+const byte speed = 150;
+
+void stop(){
+  analogWrite(B1A, LOW);
+  analogWrite(B2A, LOW);
+  analogWrite(A1A, LOW);
+  analogWrite(A2A, LOW);
+}
+void forward(){
+    analogWrite(B1A, speed);
+    analogWrite(B2A, LOW);
+    analogWrite(A1A, speed);
+    analogWrite(A2A, LOW);
+}
+void turnLeft(){
+    analogWrite(B1A, speed);
+    analogWrite(B2A, LOW);
+    analogWrite(A1A, LOW);
+    analogWrite(A2A, speed);
+}
+void turnRight(){
+    analogWrite(B1A, LOW);
+    analogWrite(B2A, speed);
+    analogWrite(A1A, speed);
+    analogWrite(A2A, LOW);
+}
+void setup(){  // put your setup code here, to run once:
+  pinMode( leftIR , INPUT);  
+  pinMode( rightIR , INPUT);  
+  pinMode( 2 , OUTPUT);   // sets the digital pin as output
+  pinMode( 3 , OUTPUT);   // sets the digital pin as output
+  pinMode( 4 , OUTPUT);   // sets the digital pin as output
+  pinMode( 5 , OUTPUT);   // sets the digital pin as output
+  stop();
+}
+
+void loop(){  // put your main code here, to run repeatedly:
+  leftReading = digitalRead(leftIR);
+  middleReading = digitalRead(middleIR);
+  rightReading = digitalRead(rightIR);
+  if (leftReading == 1 && middleReading == 1 && rightReading ==1)
+  {
+    forward();
+  }
+  else if (leftReading == 0 && middleReading == 1 && rightReading ==0)
+  {
+    forward();
+  }
+  else if (leftReading == 1 && middleReading == 1 && rightReading ==0)
+  {
+    turnLeft();
+  }
+  else if (leftReading == 1 && middleReading == 0 && rightReading ==0)
+  {
+    turnLeft();
+  }
+  else if (leftReading == 0 && middleReading == 1 && rightReading ==1)
+  {
+    turnRight();
+  }
+  else if (leftReading == 0 && middleReading == 0 && rightReading ==1)
+  {
+    turnRight();
+  }
+  else if (leftReading == 0 && middleReading == 0 && rightReading ==0)
+  {
+    stop();
+  }
+  else
+  {
+    stop();
+  }
+
+}
