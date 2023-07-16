@@ -50,7 +50,7 @@ void loop(){  // put your main code here, to run repeatedly:
   leftReading = digitalRead(leftIR);
   middleReading = digitalRead(middleIR);
   rightReading = digitalRead(rightIR);
-  if (leftReading == 1 && middleReading == 1 && rightReading ==1)
+  if (leftReading == 0 && middleReading == 0 && rightReading ==0)
   {
     forward();
   }
@@ -58,29 +58,29 @@ void loop(){  // put your main code here, to run repeatedly:
   {
     forward();
   }
-  else if (leftReading == 1 && middleReading == 1 && rightReading ==0)
-  {
-    turnLeft();
-  }
-  else if (leftReading == 1 && middleReading == 0 && rightReading ==0)
+  else if (leftReading == 0 && middleReading == 0 && rightReading ==1)
   {
     turnLeft();
   }
   else if (leftReading == 0 && middleReading == 1 && rightReading ==1)
   {
-    turnRight();
+    turnLeft();
   }
-  else if (leftReading == 0 && middleReading == 0 && rightReading ==1)
+  else if (leftReading == 1 && middleReading == 0 && rightReading ==0)
   {
     turnRight();
   }
-  else if (leftReading == 0 && middleReading == 0 && rightReading ==0)
+  else if (leftReading == 1 && middleReading == 1 && rightReading ==0)
+  {
+    turnRight();
+  }
+  else if (leftReading == 1 && middleReading == 1 && rightReading ==1)
   {
     stop();
   }
   else
   {
-    stop();
+    forward();
   }
 
 }
